@@ -40,15 +40,15 @@ const ValuesScreen = ({ selected, onSelect, onNext }: ValuesScreenProps) => {
   return (
     <ScreenWrapper screenKey="values">
       <div className="flex-1 space-y-6">
-        <h1 className="text-[22px] font-heading text-foreground">
+        <h1 className="text-[22px] font-heading text-foreground text-center">
           What feels important right now?
         </h1>
 
-        <p className="text-[15px] font-body text-muted-foreground leading-[1.65] text-justified">
+        <p className="text-[15px] font-body text-muted-foreground leading-[1.65] text-center">
           Choose 1–3 values that feel grounding.
         </p>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 justify-center">
           {VALUES.map((v) => (
             <ValueChip
               key={v}

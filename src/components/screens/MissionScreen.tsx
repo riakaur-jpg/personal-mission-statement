@@ -7,10 +7,11 @@ import { toast } from "sonner";
 interface MissionScreenProps {
   data: MissionData;
   onEdit: () => void;
+  onHome: () => void;
   onChange: (partial: Partial<MissionData>) => void;
 }
 
-const MissionScreen = ({ data, onEdit, onChange }: MissionScreenProps) => {
+const MissionScreen = ({ data, onEdit, onHome, onChange }: MissionScreenProps) => {
   const valuesText = data.values.join(", ").replace(/, ([^,]*)$/, ", and $1") || "my values";
 
   const [statement, setStatement] = useState(
@@ -20,9 +21,9 @@ const MissionScreen = ({ data, onEdit, onChange }: MissionScreenProps) => {
   const handleSave = () => {
     toast.success("Your mission statement has been saved.", {
       style: {
-        background: "hsl(155, 13%, 28%)",
-        color: "hsl(36, 16%, 87%)",
-        border: "1px solid hsl(160, 10%, 35%)",
+        background: "hsl(150, 14%, 85%)",
+        color: "hsl(160, 20%, 18%)",
+        border: "1px solid hsl(150, 10%, 68%)",
       },
     });
   };
@@ -30,17 +31,23 @@ const MissionScreen = ({ data, onEdit, onChange }: MissionScreenProps) => {
   return (
     <ScreenWrapper screenKey="mission">
       <div className="flex-1 space-y-8">
-        <h1 className="text-[22px] font-heading text-foreground">
+        <h1 className="text-[22px] font-heading text-foreground text-center">
           Your Personal Mission
         </h1>
 
         <textarea
           value={statement}
           onChange={(e) => setStatement(e.target.value)}
-          className="w-full bg-card text-foreground text-[16px] font-body rounded-2xl border border-border px-5 py-5 min-h-[140px] resize-none placeholder:text-placeholder focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 leading-[1.7]"
+          className="w-full bg-card text-foreground text-[16px] font-body rounded-2xl border border-border px-5 py-5 resize-none placeholder:text-placeholder focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 leading-[1.7] text-center overflow-hidden"
+          style={{ height: 'auto', minHeight: '120px' }}
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = 'auto';
+            target.style.height = target.scrollHeight + 'px';
+          }}
         />
 
-        <div className="space-y-4 text-[15px] font-body text-muted-foreground leading-[1.65] text-justified">
+        <div className="space-y-4 text-[15px] font-body text-muted-foreground leading-[1.65] text-center">
           <p>This is not a rule.<br />It is a reminder.</p>
           <p>You can return to it whenever you need direction.</p>
         </div>
@@ -50,6 +57,9 @@ const MissionScreen = ({ data, onEdit, onChange }: MissionScreenProps) => {
         <MissionButton onClick={handleSave}>Save</MissionButton>
         <MissionButton variant="outline" onClick={onEdit}>
           Edit
+        </MissionButton>
+        <MissionButton variant="outline" onClick={onHome}>
+          Go to Home
         </MissionButton>
       </div>
     </ScreenWrapper>

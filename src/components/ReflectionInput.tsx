@@ -7,7 +7,7 @@ const ReflectionInput = forwardRef<
 >(({ className, label, ...props }, ref) => {
   return (
     <div className="space-y-3">
-      <label className="block text-[15px] font-body text-foreground leading-relaxed">
+      <label className="block text-[15px] font-body text-foreground leading-relaxed text-center">
         {label}
       </label>
       <textarea

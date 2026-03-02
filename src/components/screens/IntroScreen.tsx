@@ -9,11 +9,11 @@ const IntroScreen = ({ onNext }: IntroScreenProps) => {
   return (
     <ScreenWrapper screenKey="intro">
       <div className="flex-1 flex flex-col justify-center space-y-8">
-        <h1 className="text-[22px] font-heading text-foreground">
+        <h1 className="text-[22px] font-heading text-foreground text-center">
           A Moment to Reconnect
         </h1>
 
-        <div className="space-y-5 text-[15px] font-body text-muted-foreground leading-[1.65] text-justified">
+        <div className="space-y-5 text-[15px] font-body text-muted-foreground leading-[1.65] text-center">
           <p>
             When you're feeling depressed, anxious, or overwhelmed, it's easy to
             lose sight of what truly matters to you.

@@ -38,7 +38,7 @@ const Index = () => {
         />
       )}
       {screen === 3 && (
-        <MissionScreen data={data} onEdit={() => goTo(2)} onChange={(d) => setData((prev) => ({ ...prev, ...d }))} />
+        <MissionScreen data={data} onEdit={() => goTo(2)} onHome={() => goTo(0)} onChange={(d) => setData((prev) => ({ ...prev, ...d }))} />
       )}
     </div>
   );

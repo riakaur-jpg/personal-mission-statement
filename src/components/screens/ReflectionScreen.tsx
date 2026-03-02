@@ -15,7 +15,7 @@ const ReflectionScreen = ({ data, onChange, onNext }: ReflectionScreenProps) => 
   return (
     <ScreenWrapper screenKey="reflection">
       <div className="flex-1 space-y-8">
-        <h1 className="text-[22px] font-heading text-foreground">
+        <h1 className="text-[22px] font-heading text-foreground text-center">
           Complete the sentence
         </h1>
 
