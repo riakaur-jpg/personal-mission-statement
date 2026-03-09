@@ -1,0 +1,104 @@
+import { useState, useEffect } from "react";
+import ScreenWrapper from "@/components/ScreenWrapper";
+import MissionButton from "@/components/MissionButton";
+import { Trash2 } from "lucide-react";
+
+export interface SavedMission {
+  id: string;
+  statement: string;
+  values: string[];
+  date: string;
+}
+
+interface HistoryScreenProps {
+  onBack: () => void;
+}
+
+const HistoryScreen = ({ onBack }: HistoryScreenProps) => {
+  const [missions, setMissions] = useState<SavedMission[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("saved-missions");
+    if (stored) {
+      setMissions(JSON.parse(stored));
+    }
+  }, []);
+
+  const handleDelete = (id: string) => {
+    const updated = missions.filter((m) => m.id !== id);
+    setMissions(updated);
+    localStorage.setItem("saved-missions", JSON.stringify(updated));
+  };
+
+  return (
+    <ScreenWrapper screenKey="history">
+      <div className="flex-1 space-y-8">
+        <h1 className="text-[22px] font-heading text-foreground text-center">
+          Your Saved Reflections
+        </h1>
+
+        {missions.length === 0 ? (
+          <div className="space-y-4 text-center">
+            <p className="text-[15px] font-body text-muted-foreground leading-[1.65]">
+              You haven't saved any mission statements yet.
+            </p>
+            <p className="text-[15px] font-body text-muted-foreground leading-[1.65] italic">
+              When you're ready, create one and it will appear here.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {missions.map((mission) => (
+              <div
+                key={mission.id}
+                className="bg-card rounded-2xl border border-border p-5 space-y-3"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <p className="text-[13px] font-body text-muted-foreground">
+                    {new Date(mission.date).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </p>
+                  <button
+                    onClick={() => handleDelete(mission.id)}
+                    className="text-muted-foreground/60 hover:text-destructive transition-colors p-1 -mt-1 -mr-1"
+                    aria-label="Delete this reflection"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+
+                {mission.values.length > 0 && (
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    {mission.values.map((v) => (
+                      <span
+                        key={v}
+                        className="text-[12px] font-body bg-primary/15 text-primary px-3 py-1 rounded-full"
+                      >
+                        {v}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <p className="text-[15px] font-body text-foreground leading-[1.7] text-center whitespace-pre-line">
+                  {mission.statement}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="pt-8 pb-4">
+        <MissionButton variant="outline" onClick={onBack}>
+          Go Back
+        </MissionButton>
+      </div>
+    </ScreenWrapper>
+  );
+};
+
+export default HistoryScreen;
