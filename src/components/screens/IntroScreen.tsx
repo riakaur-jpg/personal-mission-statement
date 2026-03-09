@@ -3,9 +3,10 @@ import MissionButton from "@/components/MissionButton";
 
 interface IntroScreenProps {
   onNext: () => void;
+  onHistory: () => void;
 }
 
-const IntroScreen = ({ onNext }: IntroScreenProps) => {
+const IntroScreen = ({ onNext, onHistory }: IntroScreenProps) => {
   return (
     <ScreenWrapper screenKey="intro">
       <div className="flex-1 flex flex-col justify-center space-y-8">
@@ -28,8 +29,11 @@ const IntroScreen = ({ onNext }: IntroScreenProps) => {
         </div>
       </div>
 
-      <div className="pt-8 pb-4">
+      <div className="pt-8 pb-4 space-y-3">
         <MissionButton onClick={onNext}>Begin</MissionButton>
+        <MissionButton variant="outline" onClick={onHistory}>
+          Past Reflections
+        </MissionButton>
       </div>
     </ScreenWrapper>
   );
